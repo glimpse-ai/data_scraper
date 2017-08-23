@@ -2,8 +2,6 @@ import os
 
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
-samples_dir = basedir + '/samples'
-
 scripts_dir = basedir + '/scripts'
 
 scrape_helpers_dir = basedir + '/scrape_helpers'
