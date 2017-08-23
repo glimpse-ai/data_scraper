@@ -1,0 +1,14 @@
+{
+  "style": true,
+  "class": true,
+  "type": true,
+  "placeholder": true,
+  "src": true,
+  "href": true,
+  "align": true,
+  "border": true,
+  "cellpadding": true,
+  "cellspacing": true,
+  "rowspan": true,
+  "colspan": true
+}

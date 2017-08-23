@@ -1,0 +1,8 @@
+{
+  "https://www.wink.com": [
+    ".message-container.banner-container"
+  ],
+  "https://boatbound.co": [
+    ".NavOffCanvas-menu"
+  ]
+}

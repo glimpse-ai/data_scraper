@@ -1,0 +1,652 @@
+{
+  "width": {
+    "default": "auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "min-width": {
+    "default": "0",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "max-width": {
+    "default": "none",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "height": {
+    "default": "auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "min-height": {
+    "default": "0",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "max-height": {
+    "default": "none",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "display": {
+    "default": "*",
+    "inherited": false
+  },
+  "float": {
+    "default": "none",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "clear": {
+    "default": "none",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "position": {
+    "default": "static",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "left": {
+    "default": "auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "right": {
+    "default": "auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "top": {
+    "default": "auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "bottom": {
+    "default": "auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "list-style": {
+    "default": {
+      "disc": "1",
+      "outside": "1",
+      "none": "1"
+    },
+    "inherited": true,
+    "shFormat": {
+      "skippable": false,
+      "props": [
+        "list-style-type",
+        "list-style-position",
+        "list-style-image"
+      ]
+    }
+  },
+  "list-style-type": {
+    "default": "disc",
+    "inherited": true,
+    "shorthand": "list-style"
+  },
+  "list-style-position": {
+    "default": "outside",
+    "inherited": true,
+    "shorthand": "list-style"
+  },
+  "list-style-image": {
+    "default": "none",
+    "inherited": true,
+    "shorthand": "list-style"
+  },
+  "z-index": {
+    "default": "auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "padding": {
+    "default": [
+      "0",
+      "0 0",
+      "0 0 0",
+      "0 0 0 0"
+    ],
+    "inherited": false,
+    "shFormat": "4_SIDE_SH",
+    "ignoreIfDefault": true,
+    "overwriteUserAgentSS": [
+      "INPUT"
+    ]
+  },
+  "padding-top": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "padding",
+    "ignoreIfDefault": true
+  },
+  "padding-bottom": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "padding",
+    "ignoreIfDefault": true
+  },
+  "padding-left": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "padding",
+    "ignoreIfDefault": true
+  },
+  "padding-right": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "padding",
+    "ignoreIfDefault": true
+  },
+  "margin": {
+    "default": [
+      "0",
+      "0 0",
+      "0 0 0",
+      "0 0 0 0"
+    ],
+    "inherited": false,
+    "shFormat": "4_SIDE_SH",
+    "ignoreIfDefault": true,
+    "overwriteUserAgentSS": [
+      "BODY"
+    ]
+  },
+  "margin-top": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "margin",
+    "ignoreIfDefault": true
+  },
+  "margin-bottom": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "margin",
+    "ignoreIfDefault": true
+  },
+  "margin-left": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "margin",
+    "ignoreIfDefault": true
+  },
+  "margin-right": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "margin",
+    "ignoreIfDefault": true
+  },
+  "border": {
+    "default": [
+      "none",
+      "0"
+    ],
+    "inherited": false,
+    "shFormat": {
+      "skippable": false,
+      "props": [
+        "border-width",
+        "border-style",
+        "border-color"
+      ]
+    },
+    "ignoreIfDefault": true,
+    "canHoldColor": true,
+    "overwriteUserAgentSS": [
+      "BUTTON",
+      "INPUT"
+    ]
+  },
+  "border-color": {
+    "default": "*",
+    "inherited": false,
+    "shorthand": "border",
+    "canHoldColor": true,
+    "overwriteUserAgentSS": [
+      "BUTTON",
+      "INPUT"
+    ]
+  },
+  "border-style": {
+    "default": "none",
+    "inherited": false,
+    "shorthand": "border",
+    "ignoreIfDefault": true,
+    "overwriteUserAgentSS": [
+      "BUTTON",
+      "INPUT"
+    ]
+  },
+  "border-width": {
+    "default": "medium",
+    "inherited": false,
+    "shorthand": "border",
+    "ignoreIfDefault": true,
+    "overwriteUserAgentSS": [
+      "BUTTON",
+      "INPUT"
+    ]
+  },
+  "border-left": {
+    "default": [
+      "none",
+      "0"
+    ],
+    "inherited": false,
+    "shFormat": {
+      "skippable": false,
+      "props": [
+        "border-left-width",
+        "border-left-style",
+        "border-left-color"
+      ]
+    },
+    "ignoreIfDefault": true,
+    "canHoldColor": true
+  },
+  "border-left-color": {
+    "default": "*",
+    "inherited": false,
+    "shorthand": "border-left",
+    "canHoldColor": true
+  },
+  "border-left-style": {
+    "default": "none",
+    "inherited": false,
+    "shorthand": "border-left",
+    "ignoreIfDefault": true
+  },
+  "border-left-width": {
+    "default": "medium",
+    "inherited": false,
+    "shorthand": "border-left",
+    "ignoreIfDefault": true
+  },
+  "border-right": {
+    "default": [
+      "none",
+      "0"
+    ],
+    "inherited": false,
+    "shFormat": {
+      "skippable": false,
+      "props": [
+        "border-right-width",
+        "border-right-style",
+        "border-right-color"
+      ]
+    },
+    "ignoreIfDefault": true,
+    "canHoldColor": true
+  },
+  "border-right-color": {
+    "default": "*",
+    "inherited": false,
+    "shorthand": "border-right",
+    "canHoldColor": true
+  },
+  "border-right-style": {
+    "default": "none",
+    "inherited": false,
+    "shorthand": "border-right",
+    "ignoreIfDefault": true
+  },
+  "border-right-width": {
+    "default": "medium",
+    "inherited": false,
+    "shorthand": "border-right",
+    "ignoreIfDefault": true
+  },
+  "border-top": {
+    "default": [
+      "none",
+      "0"
+    ],
+    "inherited": false,
+    "shFormat": {
+      "skippable": false,
+      "props": [
+        "border-top-width",
+        "border-top-style",
+        "border-top-color"
+      ]
+    },
+    "ignoreIfDefault": true,
+    "canHoldColor": true
+  },
+  "border-top-color": {
+    "default": "*",
+    "inherited": false,
+    "shorthand": "border-top",
+    "canHoldColor": true
+  },
+  "border-top-style": {
+    "default": "none",
+    "inherited": false,
+    "shorthand": "border-top",
+    "ignoreIfDefault": true
+  },
+  "border-top-width": {
+    "default": "medium",
+    "inherited": false,
+    "shorthand": "border-top",
+    "ignoreIfDefault": true
+  },
+  "border-bottom": {
+    "default": [
+      "none",
+      "0"
+    ],
+    "inherited": false,
+    "shFormat": {
+      "skippable": false,
+      "props": [
+        "border-bottom-width",
+        "border-bottom-style",
+        "border-bottom-color"
+      ]
+    },
+    "ignoreIfDefault": true,
+    "canHoldColor": true
+  },
+  "border-bottom-color": {
+    "default": "*",
+    "inherited": false,
+    "shorthand": "border-bottom",
+    "canHoldColor": true
+  },
+  "border-bottom-style": {
+    "default": "none",
+    "inherited": false,
+    "shorthand": "border-bottom",
+    "ignoreIfDefault": true
+  },
+  "border-bottom-width": {
+    "default": "medium",
+    "inherited": false,
+    "shorthand": "border-bottom",
+    "ignoreIfDefault": true
+  },
+  "box-sizing": {
+    "default": "content-box",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "box-shadow": {
+    "default": "none",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "opacity": {
+    "default": "1",
+    "inherited": false
+  },
+  "background": {
+    "default": {
+      "transparent": "1",
+      "none": "1",
+      "fixed": "1",
+      "scroll": "1",
+      "left top": "1",
+      "0": "1",
+      "0 0": "1",
+      "repeat": "1",
+      "padding-box": "1"
+    },
+    "inherited": false,
+    "shFormat": {
+      "skippable": true,
+      "props": [
+        "background-color",
+        "background-image",
+        "background-position",
+        "background-size",
+        "background-repeat"
+      ]
+    },
+    "ignoreIfDefault": true,
+    "canHoldColor": true
+  },
+  "background-color": {
+    "default": "transparent",
+    "inherited": false,
+    "shorthand": "background",
+    "ignoreIfDefault": true,
+    "canHoldColor": true,
+    "overwriteUserAgentSS": [
+      "BUTTON",
+      "INPUT"
+    ]
+  },
+  "background-image": {
+    "default": "none",
+    "inherited": false,
+    "shorthand": "background",
+    "ignoreIfDefault": true
+  },
+  "background-position": {
+    "default": [
+      "left top",
+      "0",
+      "0 0",
+      "initial initial"
+    ],
+    "inherited": false,
+    "shorthand": "background",
+    "ignoreIfDefault": true
+  },
+  "background-size": {
+    "default": "auto",
+    "inherited": false,
+    "shorthand": "background",
+    "ignoreIfDefault": true
+  },
+  "background-repeat": {
+    "default": "repeat",
+    "inherited": false,
+    "shorthand": "background",
+    "ignoreIfDefault": true
+  },
+  "border-radius": {
+    "default": [
+      "0",
+      "0 0",
+      "0 0 0",
+      "0 0 0 0"
+    ],
+    "inherited": false,
+    "shFormat": "4_SIDE_SH",
+    "ignoreIfDefault": true
+  },
+  "border-top-left-radius": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "border-radius",
+    "ignoreIfDefault": true
+  },
+  "border-top-right-radius": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "border-radius",
+    "ignoreIfDefault": true
+  },
+  "border-bottom-left-radius": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "border-radius",
+    "ignoreIfDefault": true
+  },
+  "border-bottom-right-radius": {
+    "default": "0",
+    "inherited": false,
+    "shorthand": "border-radius",
+    "ignoreIfDefault": true
+  },
+  "text-align": {
+    "default": "left",
+    "inherited": true
+  },
+  "font": {
+    "default": [
+      "medium normal",
+      "medium normal normal"
+    ],
+    "inherited": true
+  },
+  "font-style": {
+    "default": "normal",
+    "inherited": true
+  },
+  "font-weight": {
+    "default": [
+      "normal",
+      "400"
+    ],
+    "inherited": true
+  },
+  "font-size": {
+    "default": "medium",
+    "inherited": true
+  },
+  "line-height": {
+    "default": "normal",
+    "inherited": true
+  },
+  "color": {
+    "default": "*",
+    "inherited": true,
+    "canHoldColor": true,
+    "overwriteUserAgentSS": [
+      "A",
+      "BUTTON"
+    ]
+  },
+  "text-transform": {
+    "default": "none",
+    "inherited": true
+  },
+  "text-decoration": {
+    "default": "none",
+    "inherited": false
+  },
+  "overflow": {
+    "default": "visible",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "overflow-x": {
+    "default": "visible",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "overflow-y": {
+    "default": "visible",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "white-space": {
+    "default": "normal",
+    "inherited": true
+  },
+  "-webkit-box-pack": {
+    "default": "start",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "-webkit-box-align": {
+    "default": "stretch",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "-webkit-box-direction": {
+    "default": "normal",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "-webkit-box-orient": {
+    "default": "inline-axis",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "align-items": {
+    "default": "stretch",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "justify-content": {
+    "default": "flex-start",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "flex": {
+    "default": "0 1 auto",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "flex-direction": {
+    "default": "row",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "flex-wrap": {
+    "default": "nowrap",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "flex-basis": {
+    "default": "auto",
+    "inherited": false
+  },
+  "flex-grow": {
+    "default": "0",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "flex-shrink": {
+    "default": "1",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "vertical-align": {
+    "default": "baseline",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "outline": {
+    "default": {
+      "invert": "1",
+      "none": "1",
+      "medium": "1",
+      "0": "1"
+    },
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "transform": {
+    "default": "none",
+    "inherited": false
+  },
+  "order": {
+    "default": "0",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "appearance": {
+    "default": "normal",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "-webkit-appearance": {
+    "default": "normal",
+    "inherited": false,
+    "ignoreIfDefault": true
+  },
+  "visibility": {
+    "default": "visible",
+    "inherited": true
+  }
+}
