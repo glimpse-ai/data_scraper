@@ -101,8 +101,8 @@ class InlineStyler:
     # Remove elements before styling
     self.pre_styling_el_removal()
 
-    # Clip HTML body height
-    self.driver.execute_script(self.scripts.get('clipBodyToHeight'), WINDOW_HEIGHT * 4)
+    # Clip HTML body height (before styling)
+    self.clip_body()
 
     # Check on :after elements' "clear" property
     self.driver.execute_script(self.scripts.get('checkForPseudoAfter'))
@@ -147,6 +147,9 @@ class InlineStyler:
 
     # Remove prop redundancy now that we've inherited CSS props
     self.driver.execute_script(self.scripts.get('removePropRedundancy'), all_els_border_box)
+
+    # Clip HTML body height (post styling)
+    self.clip_body()
 
     # Determine which html template to use based on border-box result
     wrapper_template = self.get_body_wrapper(all_els_border_box)
@@ -215,6 +218,9 @@ class InlineStyler:
       'removeNoHeightNoChildrenEls',
       'removeAllButOneSelectOption',
     ]]
+
+  def clip_body(self):
+    self.driver.execute_script(self.scripts.get('clipBodyToHeight'), WINDOW_HEIGHT * 4)
 
   def store_utils_on_window(self):
     [self.driver.execute_script(self.scripts.get(s)) for s in [
