@@ -15,9 +15,7 @@ class URLBlacklistedException(BaseException):
 
 
 class TooManyElementsException(BaseException):
-
-  def __init__(self, message):
-    self.message = message
+  message = 'Too many element batches.'
 
 
 class BatchesTooSlow(BaseException):
@@ -26,3 +24,15 @@ class BatchesTooSlow(BaseException):
 
 class NoChildrenInBody(BaseException):
   message = 'Body has no children.'
+
+
+class ScreenshotException(BaseException):
+  message = 'Error capturing screenshot of html.'
+
+
+class ScreenshotException(BaseException):
+  message = 'Error capturing screenshot of html.'
+
+
+class ResizeImageError(BaseException):
+  message = 'Error resizing image.'

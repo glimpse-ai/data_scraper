@@ -1,4 +1,4 @@
-from helpers.definitions import html_dir, WINDOW_WIDTH, WINDOW_HEIGHT
+from helpers.definitions import html_dir, WINDOW_WIDTH, WINDOW_HEIGHT, IMAGE_HEIGHT
 from helpers.utils import filename_for_url, which_os, get_script, get_scrape_helper
 from helpers.driver import get_driver
 from src.exceptions import *
@@ -7,7 +7,6 @@ from pyvirtualdisplay import Display
 from time import sleep
 import urllib2
 import signal
-import json
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -220,7 +219,7 @@ class InlineStyler:
     ]]
 
   def clip_body(self):
-    self.driver.execute_script(self.scripts.get('clipBodyToHeight'), WINDOW_HEIGHT * 4)
+    self.driver.execute_script(self.scripts.get('clipBodyToHeight'), IMAGE_HEIGHT)
 
   def store_utils_on_window(self):
     [self.driver.execute_script(self.scripts.get(s)) for s in [
@@ -240,7 +239,7 @@ class InlineStyler:
     self.num_batches = len(batches)
 
     if self.num_batches > self.MAX_BATCHES_ALLOWED:
-      raise TooManyElementsException('Too many element batches ({}).'.format(self.num_batches))
+      raise TooManyElementsException()
 
     print 'Number of Batches: {}'.format(self.num_batches)
 
