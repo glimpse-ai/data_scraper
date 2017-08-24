@@ -107,6 +107,20 @@ function removeRedundancy(el) {
     }
 
     // If calc value, try to strip out just % part of it...if no % part, remove
+    if (has(val, 'calc(')) {
+      var calcMatches = val.match(/(calc\(.*?\))/);
+
+      if (calcMatches) {
+        var calcMatch = calcMatches[0];
+        var pctMatch = calcMatch.match(/([0-9]+%)/);
+
+        if (pctMatch) {
+          val = pctMatch[0];
+        } else {
+          continue;
+        }
+      }
+    }
 
     if (has(val, '+') || has(val, 'gradient')) {
       continue;
