@@ -1,6 +1,6 @@
-//
-// Replace <link> tag with <style type="text/css">provided css</style>
-//
+/*
+Replace <link> tag with <style type="text/css">provided css</style>
+ */
 
 var linkEl = arguments[0];
 var css = arguments[1];

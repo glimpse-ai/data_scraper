@@ -1,3 +1,7 @@
+/*
+Inherit CSS props backwards up the DOM tree to avoid 'inherited' or 'initial' values
+ */
+
 function findInheritedPropVal (el, prop) {
   var parent = el.parentNode;
   

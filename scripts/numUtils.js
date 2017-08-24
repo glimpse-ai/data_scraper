@@ -1,3 +1,7 @@
+/*
+Assign number utility methods to window
+ */
+
 window.roundFloats = function (str) {
   return str.replace(/\b(\d+)\.(\d+)/g, function($0) {
     return (Math.round($0 * 10) / 10).toString();

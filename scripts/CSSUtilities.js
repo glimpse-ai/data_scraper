@@ -1,3 +1,7 @@
+/*
+Class for inline-styling html elements
+ */
+
 function CSSUtilities() {
 }
 (function () {

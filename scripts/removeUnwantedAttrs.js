@@ -1,3 +1,7 @@
+/*
+Remove attributes not in accepted attributes map
+ */
+
 var acceptedAttrsMap = arguments[0];
 
 var els = document.body.querySelectorAll('*');

@@ -1,3 +1,7 @@
+/*
+Due to CSS property inheritance, remove redundant CSS style props
+ */
+
 var allElsBorderBox = arguments[0];
 
 window.matchesDefault = function(val, defaultVal) {

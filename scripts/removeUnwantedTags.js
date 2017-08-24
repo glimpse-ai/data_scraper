@@ -1,3 +1,7 @@
+/*
+Strip out any tags we don't want (by tag name)
+ */
+
 var acceptedBodyTags = [
   'div',
   'h1',

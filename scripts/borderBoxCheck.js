@@ -1,3 +1,7 @@
+/*
+Check to see if all elements have box-sizing:border-box
+ */
+
 var allElsBorderBox = true;
 
 var els = document.body.querySelectorAll('*');

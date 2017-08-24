@@ -1,4 +1,3 @@
-import os
 import re
 import sys
 from bs4 import BeautifulSoup, NavigableString, Tag

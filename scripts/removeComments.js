@@ -1,3 +1,7 @@
+/*
+Strip out all HTML comments
+ */
+
 var iterator = document.createNodeIterator(document.body, NodeFilter.SHOW_COMMENT);
 var node;
 

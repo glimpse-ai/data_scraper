@@ -1,3 +1,7 @@
+/*
+Remove all but the first <option> tag inside all <select> dropdowns
+ */
+
 var selects = document.body.querySelectorAll('select');
 
 var el, options;

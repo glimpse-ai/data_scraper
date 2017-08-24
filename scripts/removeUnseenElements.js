@@ -1,3 +1,7 @@
+/*
+Remove invisible elements
+ */
+
 var els = document.body.querySelectorAll('*');
 var el;
 for (var i = 0; i < els.length; i++) {

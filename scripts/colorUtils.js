@@ -1,3 +1,7 @@
+/*
+Assign color utility methods to window
+ */
+
 window.numToHex = function(num) {
   return ("0"+Number(num).toString(16)).substr(-2);
 };

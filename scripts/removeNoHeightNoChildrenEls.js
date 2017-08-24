@@ -1,3 +1,7 @@
+/*
+Remove all elements with height of 0 or no children
+ */
+
 var els = document.body.querySelectorAll('*');
 
 var el;

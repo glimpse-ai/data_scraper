@@ -1,3 +1,7 @@
+/*
+Remove classes that aren't in accepted class map
+ */
+
 var acceptedClassesMap = arguments[0];
 
 var els = document.body.querySelectorAll('*');

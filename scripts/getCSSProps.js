@@ -1,3 +1,7 @@
+/*
+Assign CSS props to each element as style attribute
+ */
+
 var els = arguments[0];
 var el;
 var elsWithStyle = [];

@@ -1,3 +1,7 @@
+/*
+Remove any elements passed in
+ */
+
 var els = arguments[0];
 
 for (var i = els.length - 1; i >= 0; i--) {

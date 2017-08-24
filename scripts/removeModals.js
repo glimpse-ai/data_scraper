@@ -1,3 +1,7 @@
+/*
+Remove any modals (simple class search)
+ */
+
 var modal = document.getElementsByClassName('modal');
 var el;
 for (var i = modal.length - 1; i >= 0; i--) {

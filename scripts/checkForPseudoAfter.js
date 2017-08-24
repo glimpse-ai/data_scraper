@@ -1,3 +1,7 @@
+/*
+Assign 'clear-both-after' class to els whose :after pseudo element has clear:both CSS prop
+ */
+
 function hasPseudoAfterClear (el) {
   var s = getComputedStyle(el, ':after');
 

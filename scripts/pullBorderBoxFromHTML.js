@@ -1,3 +1,7 @@
+/*
+Give <body> box-sizing property if <html> has it
+ */
+
 // Note: Tons of copypasta here from inheritProps.js
 
 function inheritProps (el, htmlStyleMap) {

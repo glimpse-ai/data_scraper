@@ -1,3 +1,7 @@
+/*
+Remove any HTML elements whose tops start below a specified pixel height
+ */
+
 function getOffsetTop (el, cumulative) {
   if (!cumulative) {
     cumulative = 0;
