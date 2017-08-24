@@ -2,6 +2,8 @@
 Remove invisible elements
  */
 
+var has = window.has;
+
 var els = document.body.querySelectorAll('*');
 var el;
 var remove;
@@ -46,9 +48,8 @@ for (var i = 0; i < els.length; i++) {
   var bgImage = el.style.backgroundImage;
   var bgColor = el.style.backgroundColor;
 
-  if (!remove && hasNoContents(el) && !has(allowedNoContents, el.tagName.toLowerCase()) &&
-    (!bgImage || !has(bgImage, 'url(') || !has(bgImage, 'data:image')) &&
-    (!bg || !has(bg, 'url(') || !has(bg, 'data:image')) &&
+  if (!remove && hasNoContents(el) && !has(allowedNoContents, el.tagName.toLowerCase()) && !bgImage &&
+    (!bg || !has(bg, 'url(')) &&
     (!bg || !has(bg, '#') || !has(bg, 'rgb')) &&
     (!bgColor || bgColor === 'transparent' || bgColor.replace(/ /g, '') === 'rgba(0,0,0,0)')) {
 

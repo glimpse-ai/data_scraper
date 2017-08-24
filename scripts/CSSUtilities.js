@@ -2461,7 +2461,7 @@ function reduceProps(props, el) {
       if (val && typeof val === 'string') {
         val = val.toLowerCase().replace('!important', '').trim();
 
-        if (val.indexOf('calc(') != -1) {
+        if (has(val, 'calc(')){
           val = getComputedStyle(el)[p];
         }
       }

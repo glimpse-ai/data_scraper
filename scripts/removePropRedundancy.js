@@ -1,7 +1,7 @@
 /*
 Due to CSS property inheritance, remove redundant CSS style props
  */
-
+var has = window.has;
 var allElsBorderBox = arguments[0];
 
 window.matchesDefault = function(val, defaultVal) {
@@ -126,13 +126,14 @@ function removeRedundancy(el) {
     reducedProps[p] = val;
   }
   
-  // if <a> element with only text content
-  if (el.tagName == 'A' && el.innerHTML && el.innerText && el.innerHTML.trim() == el.innerText.trim()) {
-    // empty contents of element if it has a background-image of any sort
-    if (reducedProps.hasOwnProperty('background-image') || (reducedProps.background || '').indexOf('url(') != -1) {
-      el.innerHTML = '';
-    }
+  // Empty any link tags with only text content that have background images
+  if (el.tagName == 'A' && el.innerHTML && el.innerText && el.innerHTML.trim() == el.innerText.trim() &&
+    (has(reducedProps, 'background-image') || has(reducedProps.background, 'url('))) {
+
+    el.innerHTML = '';
   }
+
+  
   
   style = '';
   for (var k in reducedProps) {
