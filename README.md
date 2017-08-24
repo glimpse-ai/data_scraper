@@ -1,7 +1,6 @@
 # Glimpse Data Scraper
-------------------------
 
-1. Pull remote HTML from urls to local HTML files with inline-styled CSS
+1. Pull HTML from remote urls into local HTML files with inline-styled CSS
 
     ```
     $ python scrape.py
@@ -25,7 +24,7 @@
     $ python capture.py
     ```
 
-5. Translate all HTML files to DML files
+5. Translate all HTML files to DML
 
     ```
     $ python translate.py
