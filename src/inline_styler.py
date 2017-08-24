@@ -26,8 +26,7 @@ class InlineStyler:
     'removeNoHeightNoChildrenEls',  # Remove all elements with height of 0 or no children
     'clipBodyToHeight',             # Remove any HTML elements whose tops start below a specified pixel height
     'checkForPseudoAfter',          # Assign special class to els whose :after pseudo element has clear:both CSS prop
-    'colorUtils',                   # Assign color utility methods to window
-    'numUtils',                     # Assign number utility methods to window
+    'utils',                        # Assign utility methods to window
     'CSSUtilities',                 # Make CSSUtilities class globally available
     'getCSSProps',                  # Assign CSS props to each element as style attribute
     'removeAsyncScriptTags',        # Remove script tags that got added to the page later
@@ -107,7 +106,8 @@ class InlineStyler:
     self.driver.execute_script(self.scripts.get('checkForPseudoAfter'))
 
     # Add some utility methods to window
-    self.store_utils_on_window()
+    self.driver.execute_script(self.scripts.get('utils'))
+    self.driver.execute_script(self.scripts.get('CSSUtilities'), self.css_props_info, WINDOW_WIDTH)
 
     body = self.driver.find_element_by_tag_name('body')
 
@@ -220,15 +220,6 @@ class InlineStyler:
 
   def clip_body(self):
     self.driver.execute_script(self.scripts.get('clipBodyToHeight'), IMAGE_HEIGHT)
-
-  def store_utils_on_window(self):
-    [self.driver.execute_script(self.scripts.get(s)) for s in [
-      'utils',
-      'colorUtils',
-      'numUtils'
-    ]]
-
-    self.driver.execute_script(self.scripts.get('CSSUtilities'), self.css_props_info, WINDOW_WIDTH)
 
   def style_elements(self, body):
     # Avoid any async script tags
