@@ -2410,6 +2410,20 @@ function update(obj/*, …*/) {
 
 window.propsMap = arguments[0];
 
+function allowedRules(el) {
+  var rules = CSSUtilities.getCSSRules(el, '*');
+  var allowedRules = [];
+
+  // Filter CSS rules by those that are valid (based on media type and/or value)
+  rules.forEach(function (rule) {
+    if (rule.properties && ruleAllowed(rule.media || '')) {
+      allowedRules.push(rule);
+    }
+  });
+
+  return allowedRules;
+}
+
 function isTranslate(prop) {
   return startsWith(prop, 'translateX(') ||
     startsWith(prop, 'translateY(') ||
@@ -2440,17 +2454,18 @@ function reduceProps(props, el) {
   
   var val, computedStyle;
   for (var p in props) {
+    // propsMap is just props.json
     if (window.propsMap.hasOwnProperty(p)) {
-      val = props[p].value.replace('!important', '').trim();
-      
-      if (val.indexOf('calc(') != -1) {
-        if (!computedStyle) {
-          computedStyle = getComputedStyle(el);
+      val = props[p].value;
+
+      if (val && typeof val === 'string') {
+        val = val.toLowerCase().replace('!important', '').trim();
+
+        if (val.indexOf('calc(') != -1) {
+          val = getComputedStyle(el)[p];
         }
-        
-        val = computedStyle[p];
       }
-      
+
       allowedProps[p] = val;
     }
   }
@@ -2473,64 +2488,25 @@ function computeNewPctPos(el, side, sideVal, translateVal) {
   return (((computedSide + translatePx) / totalMeasurementPx) * 100) + '%';
 }
 
-CSSUtilities.getCSSProps = function (el) {
-  var rules = CSSUtilities.getCSSRules(el, '*');
-  var allowedRules = [];
-  var props = {};
-
-  rules.forEach(function (rule) {
-    if (rule.properties && ruleAllowed(rule.media || '')) {
-      allowedRules.push(rule);
-    }
-  });
-  
-  var properties;
-  for (var i = 0; i < allowedRules.length; i++) {
-    properties = allowedRules[i].properties || {};
-  
-    if (properties) {
-      props = update(props, properties);
-    }
-  }
-  
-  props = reduceProps(props, el);
-  
+// Convert transform-translate's into positional css props
+function fixTransforms(props) {
   var staticProps = {};
   var modProps = {};
   var propVal;
+
   for (var p in props) {
     propVal = props[p];
-    
-    // BACKGROUND-IMAGE
-    if (p == 'background-image' && startsWith(propVal, 'url(')) {
-      var matches = propVal.replace('"', '').replace("'", '').match(/url\((.*)\)/);
-  
-      if (matches && matches.length == 2) {
-        propVal = 'url("' + window.urlToAbsolute(matches[1]).replace('"', '').replace("'", '') + '")';
-      }
-    }
-    
-    // BACKGROUND
-    else if (p == 'background') {
-      var urlMatches = propVal.replace('"', '').replace("'", '').match(/url\((.*)\)/);
-      
-      if (urlMatches && urlMatches.length == 2) {
-        var startUrlIndex = propVal.indexOf('url(');
-        var endUrlIndex = propVal.indexOf(')', startUrlIndex);
-        propVal = propVal.substr(0, startUrlIndex) + 'url("' + window.urlToAbsolute(urlMatches[1]).replace('"', '').replace("'", '') + '")' + propVal.substr(endUrlIndex + 1);
-      }
-    }
-    
+
     // TRANSFORM
-    else if (p == 'transform') {
+    if (p == 'transform') {
       if (isTranslate(propVal)) {
         var x = null;
         var y = null;
         var xy = null;
         var xyz = null;
-        
+
         propVal = propVal.substr(0, propVal.indexOf(')') + 1);
-        
+
         if (startsWith(propVal, 'translateX(')) {
           x = propVal.match(/translateX\((.*)\)/)[1].trim();
         } else if (startsWith(propVal, 'translateY(')) {
@@ -2544,24 +2520,24 @@ CSSUtilities.getCSSProps = function (el) {
           x = xyz[0];
           y = xyz[1];
         }
-        
+
         if (x) {
           var xVal = parseInt(x);
           var xUnits = x.replace(xVal.toString(), '');
-          
+
           if (props['left'] && props['right'] && props['left'] != 'auto' && props['right'] != 'auto') {
             continue;
           }
-          
+
           if (props['left'] && props['left'] != 'auto') {
             var left = props['left'].trim();
             var leftVal = parseInt(left);
             var leftUnits = left.replace(leftVal.toString(), '');
-            
+
             if (leftVal == 0|| isNaN(leftVal) || xUnits != leftUnits) {
               continue;
             }
-            
+
             if (xUnits == 'px') {
               modProps['left'] = leftVal + xVal + 'px';
             } else if (xUnits == '%') {
@@ -2571,13 +2547,13 @@ CSSUtilities.getCSSProps = function (el) {
             var right = props['right'].trim();
             var rightVal = parseInt(right);
             var rightUnits = right.replace(rightVal.toString(), '');
-            
+
             if (rightVal == 0|| isNaN(rightVal) || xUnits != rightUnits) {
               continue;
             }
-            
+
             xVal = -1 * xVal; // swap around signs
-            
+
             if (xUnits == 'px') {
               modProps['right'] = rightVal + xVal + 'px';
             } else if (xUnits == '%') {
@@ -2587,24 +2563,24 @@ CSSUtilities.getCSSProps = function (el) {
             modProps['left'] = x;
           }
         }
-        
+
         if (y) {
           var yVal = parseInt(y);
           var yUnits = y.replace(yVal.toString(), '');
-          
+
           if (props['top'] && props['bottom'] && props['top'] != 'auto' && props['bottom'] != 'auto') {
             continue;
           }
-          
+
           if (props['top']) {
             var top = props['top'].trim();
             var topVal = parseInt(top);
             var topUnits = top.replace(topVal.toString(), '');
-            
+
             if (topVal == 0|| isNaN(topVal) || yUnits != topUnits) {
               continue;
             }
-            
+
             if (yUnits == 'px') {
               modProps['top'] = topVal + yVal + 'px';
             } else if (yUnits == '%') {
@@ -2614,13 +2590,13 @@ CSSUtilities.getCSSProps = function (el) {
             var bottom = props['bottom'].trim();
             var bottomVal = parseInt(bottom);
             var bottomUnits = bottom.replace(bottomVal.toString(), '');
-            
+
             if (bottomVal == 0|| isNaN(bottomVal) || yUnits != bottomUnits) {
               continue;
             }
-            
+
             yVal = -1 * yVal; // swap around signs
-            
+
             if (yUnits == 'px') {
               modProps['bottom'] = bottomVal + yVal + 'px';
             } else if (yUnits == '%') {
@@ -2630,11 +2606,11 @@ CSSUtilities.getCSSProps = function (el) {
             modProps['top'] = y;
           }
         }
-        
+
         if (['relative', 'absolute', 'fixed'].indexOf(props['position']) == -1) {
           modProps['position'] = 'relative';
         }
-        
+
         if (x || y) {
           continue;
         }
@@ -2642,49 +2618,89 @@ CSSUtilities.getCSSProps = function (el) {
         continue;
       }
     }
-    
+
     staticProps[p] = propVal;
   }
-  
-  var finalProps = update(staticProps, modProps);
-  
-  var attrProps = {
+
+  return update(staticProps, modProps);
+}
+
+function handleAttrProps(props) {
+  var validAttrProps = {
     'width': 'width',
     'height': 'height',
     'valign': 'vertical-align',
     'bgcolor': 'background-color'
   };
-  
+
   var prop, attrVal;
-  for (var attr in attrProps) {
-    prop = attrProps[attr];
-    
+  for (var attr in validAttrProps) {
+    prop = validAttrProps[attr];
+
     // if the element has the attribute, but not the prop, add it as a prop
-    if (el.hasAttribute(attr) && !finalProps.hasOwnProperty(prop)) {
+    if (el.hasAttribute(attr) && !props.hasOwnProperty(prop)) {
       attrVal = el.getAttribute(attr);
-      
+
       // if no units on the width/height attr val (most likely) --> give it px
       if ((attr == 'width' || attr == 'height') && parseFloat(attrVal) == attrVal) {
         attrVal = attrVal + 'px';
       }
-      
-      finalProps[prop] = attrVal;
+
+      props[prop] = attrVal;
     }
   }
-  
-  // if position is 'absolute' or 'fixed' but has no directional prop, set top and left to 0.
-  var pos = finalProps['position'];
+}
+
+function rulesToProps(rules) {
+  var props = {};
+
+  // Populate a props map that updates/overwrites props from least-to-most relevant CSS rules
+  var properties;
+  for (var i = 0; i < rules.length; i++) {
+    properties = rules[i].properties || {};
+
+    if (properties) {
+      props = update(props, properties);
+    }
+  }
+
+  return props;
+}
+
+function setDirectionsOnPositionalEls(props) {
+  var pos = props['position'];
+
   if (pos == 'absolute' || pos == 'fixed') {
-    var hasDirectionalProp = finalProps.hasOwnProperty('top') ||
-      finalProps.hasOwnProperty('bottom') ||
-      finalProps.hasOwnProperty('left') ||
-      finalProps.hasOwnProperty('right');
-    
+    var hasDirectionalProp = props.hasOwnProperty('top') ||
+      props.hasOwnProperty('bottom') ||
+      props.hasOwnProperty('left') ||
+      props.hasOwnProperty('right');
+
     if (!hasDirectionalProp) {
-      finalProps['top'] = 0;
-      finalProps['left'] = 0;
+      props['top'] = 0;
+      props['left'] = 0;
     }
   }
-  
-  return finalProps;
+}
+
+CSSUtilities.getCSSProps = function (el) {
+  // Get allowed CSS rules based on media type and/or value
+  var rules = allowedRules(el);
+
+  // Convert CSS rules to properties
+  var props = rulesToProps(rules);
+
+  // Remove any props we don't support, remove !important, and fix calc()'s
+  props = reduceProps(props, el);
+
+  // Convert transform/translates into positional props (top/bottom/left/right)
+  props = fixTransforms(props);
+
+  // Handle css props that are also valid attributes
+  props = handleAttrProps(props);
+
+  // If position is 'absolute' or 'fixed' but has no directional prop, set 'top' and 'left' to 0.
+  props = setDirectionsOnPositionalEls(props);
+
+  return props;
 };

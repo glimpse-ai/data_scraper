@@ -15,8 +15,7 @@ def discard_file():
   filename = 'something.html'  # get from params
   curr_path = '{}/{}'.format(html_dir, filename)
 
-  if request.method == 'PUT':
-    # Update HTML file contents
+  if request.method == 'PUT':  # Update HTML file contents
     new_html = ''  # get from params
 
     soup = BeautifulSoup(new_html, 'html.parser')
@@ -24,8 +23,7 @@ def discard_file():
     with open(curr_path, 'w+') as f:
       f.write(soup.prettify().encode('utf-8'))
 
-  elif request.method == 'DELETE':
-    # Move file to html_discard directory
+  elif request.method == 'DELETE':  # Move file to html_discard directory
     dest_path = '{}/{}'.format(html_discard_dir, filename)
 
     try:
