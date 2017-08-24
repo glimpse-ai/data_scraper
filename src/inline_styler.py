@@ -223,6 +223,7 @@ class InlineStyler:
 
   def store_utils_on_window(self):
     [self.driver.execute_script(self.scripts.get(s)) for s in [
+      'utils',
       'colorUtils',
       'numUtils'
     ]]

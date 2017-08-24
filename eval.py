@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 
 @app.route('/html_eval', methods=['PUT', 'DELETE'])
-def discard_file():
+def html_eval():
   filename = 'something.html'  # get from params
   curr_path = '{}/{}'.format(html_dir, filename)
 

@@ -2568,12 +2568,12 @@ function fixTransforms(props) {
           var yVal = parseInt(y);
           var yUnits = y.replace(yVal.toString(), '');
 
-          if (props['top'] && props['bottom'] && props['top'] != 'auto' && props['bottom'] != 'auto') {
+          if (props.top && props.bottom && props.top != 'auto' && props.bottom != 'auto') {
             continue;
           }
 
-          if (props['top']) {
-            var top = props['top'].trim();
+          if (props.top) {
+            var top = props.top.trim();
             var topVal = parseInt(top);
             var topUnits = top.replace(topVal.toString(), '');
 
@@ -2582,12 +2582,12 @@ function fixTransforms(props) {
             }
 
             if (yUnits == 'px') {
-              modProps['top'] = topVal + yVal + 'px';
+              modProps.top = topVal + yVal + 'px';
             } else if (yUnits == '%') {
-              modProps['top'] = computeNewPctPos(el, 'top', topVal, yVal);
+              modProps.top = computeNewPctPos(el, 'top', topVal, yVal);
             }
-          } else if (props['bottom']) {
-            var bottom = props['bottom'].trim();
+          } else if (props.bottom) {
+            var bottom = props.bottom.trim();
             var bottomVal = parseInt(bottom);
             var bottomUnits = bottom.replace(bottomVal.toString(), '');
 
@@ -2598,17 +2598,17 @@ function fixTransforms(props) {
             yVal = -1 * yVal; // swap around signs
 
             if (yUnits == 'px') {
-              modProps['bottom'] = bottomVal + yVal + 'px';
+              modProps.bottom = bottomVal + yVal + 'px';
             } else if (yUnits == '%') {
-              modProps['bottom'] = computeNewPctPos(el, 'bottom', bottomVal, yVal);
+              modProps.bottom = computeNewPctPos(el, 'bottom', bottomVal, yVal);
             }
           } else {
-            modProps['top'] = y;
+            modProps.top = y;
           }
         }
 
         if (['relative', 'absolute', 'fixed'].indexOf(props['position']) == -1) {
-          modProps['position'] = 'relative';
+          modProps.position = 'relative';
         }
 
         if (x || y) {
@@ -2668,7 +2668,7 @@ function rulesToProps(rules) {
 }
 
 function setDirectionsOnPositionalEls(props) {
-  var pos = props['position'];
+  var pos = props.position;
 
   if (pos == 'absolute' || pos == 'fixed') {
     var hasDirectionalProp = props.hasOwnProperty('top') ||
@@ -2677,8 +2677,8 @@ function setDirectionsOnPositionalEls(props) {
       props.hasOwnProperty('right');
 
     if (!hasDirectionalProp) {
-      props['top'] = 0;
-      props['left'] = 0;
+      props.top = 0;
+      props.left = 0;
     }
   }
 }
@@ -2701,6 +2701,11 @@ CSSUtilities.getCSSProps = function (el) {
 
   // If position is 'absolute' or 'fixed' but has no directional prop, set 'top' and 'left' to 0.
   props = setDirectionsOnPositionalEls(props);
+
+  // If body has overflow:hidden, remove it
+  if (el.tagName == 'BODY' && props.overflow == 'hidden') {
+    delete props.overflow;
+  }
 
   return props;
 };

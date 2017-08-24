@@ -376,11 +376,6 @@
     "inherited": false,
     "ignoreIfDefault": true
   },
-  "box-shadow": {
-    "default": "none",
-    "inherited": false,
-    "ignoreIfDefault": true
-  },
   "opacity": {
     "default": "1",
     "inherited": false
