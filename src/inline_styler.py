@@ -33,6 +33,7 @@ class InlineStyler:
     'removeUnseenElements',         # Remove invisible elements
     'removeUnwantedClasses',        # Remove classes that aren't in accepted class map
     'removeUnwantedAttrs',          # Remove attributes not in accepted attributes map
+    'removeDataKeepAttr'            # Remove data-keep attribute from all els
     'removeGivenElements',          # Remove any elements passed in
     'pullBorderBoxFromHTML',        # Give <body> box-sizing property if <html> has it
     'inheritProps',                 # Inherit CSS props up the DOM tree to avoid 'inherited' or 'initial' values
@@ -149,6 +150,9 @@ class InlineStyler:
 
     # Clip HTML body height (post styling)
     self.clip_body()
+
+    # Remove data-keep attributes after clipping body
+    self.driver.execute_script(self.scripts.get('removeDataKeepAttr'))
 
     # Determine which html template to use based on border-box result
     wrapper_template = self.get_body_wrapper(all_els_border_box)
