@@ -1,6 +1,6 @@
 import os
 from src.helpers.utils import image_for_html
-from src.helpers.definitions import image_dir, html_dir, html_image_error_dir
+from src.helpers.definitions import image_dir, html_dir, html_discard_dir
 from src.exceptions import ScreenshotException, ResizeImageError
 
 
@@ -33,6 +33,6 @@ if __name__ == '__main__':
 
     if err:
       # If an error occurred taking a screenshot of this html file, move it into the html_image_error dir
-      os.system('mv {}/{} {}/{}'.format(html_dir, f, html_image_error_dir, f))
+      os.system('mv {}/{} {}/{}'.format(html_dir, f, html_discard_dir, f))
 
     i += 1

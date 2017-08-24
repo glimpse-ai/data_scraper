@@ -12,7 +12,7 @@ image_dir = data_dir + '/images'
 
 html_dir = data_dir + '/html'
 
-html_image_error_dir = data_dir + '/html_image_error'
+html_discard_dir = data_dir + '/html_discard'
 
 dml_dir = data_dir + '/dml'
 
