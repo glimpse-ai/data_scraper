@@ -1,6 +1,7 @@
 import os
 from src.helpers.definitions import html_discard_dir, html_dir
 from flask import Flask, request
+from flask_cors import CORS
 from bs4 import BeautifulSoup
 import sys
 reload(sys)
@@ -8,30 +9,40 @@ sys.setdefaultencoding('utf-8')
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/html_eval', methods=['PUT', 'DELETE'])
 def html_eval():
-  filename = 'something.html'  # get from params
-  curr_path = '{}/{}'.format(html_dir, filename)
+  args = dict(request.form.items())
+  file_path = args.get('filePath')
 
-  if request.method == 'PUT':  # Update HTML file contents
-    new_html = ''  # get from params
+  if not file_path:
+    return ''
+
+  # Update HTML file contents in place
+  if request.method == 'PUT':
+    new_html = args.get('html')
+
+    if not new_html:
+      return ''
 
     soup = BeautifulSoup(new_html, 'html.parser')
 
-    with open(curr_path, 'w+') as f:
+    with open(file_path, 'w+') as f:
       f.write(soup.prettify().encode('utf-8'))
 
-  elif request.method == 'DELETE':  # Move file to html_discard directory
-    dest_path = '{}/{}'.format(html_discard_dir, filename)
+  # Move file to html_discard directory
+  elif request.method == 'DELETE':
+    file_name = file_path.split('/').pop()
+    dest_path = '{}/{}'.format(html_discard_dir, file_name)
 
     try:
-      os.system('mv {} {}'.format(curr_path, dest_path))
+      os.system('mv {} {}'.format(file_path, dest_path))
     except BaseException, e:
-      print 'Error discarding {}: {}'.format(filename, e.message)
+      print 'Error discarding {}: {}'.format(file_name, e.message)
 
-  return {}, 200
+  return ''
 
 
 if __name__ == '__main__':

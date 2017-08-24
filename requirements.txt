@@ -6,3 +6,5 @@ redis==2.10.5
 requests==2.13.0
 selenium==3.4.1
 pyvirtualdisplay==0.2.1
+flask-cors==3.0.3
+Flask==0.12.2
