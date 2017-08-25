@@ -2451,8 +2451,8 @@ window.urlToAbsolute = function (url) {
 
 function reduceProps(props, el) {
   var allowedProps = {};
-  
-  var val, computedStyle;
+  var val;
+
   for (var p in props) {
     // propsMap is just props.json
     if (window.propsMap.hasOwnProperty(p)) {
@@ -2489,7 +2489,7 @@ function computeNewPctPos(el, side, sideVal, translateVal) {
 }
 
 // Convert transform-translate's into positional css props
-function fixTransforms(props) {
+function fixTransforms(props, el) {
   var staticProps = {};
   var modProps = {};
   var propVal;
@@ -2625,7 +2625,7 @@ function fixTransforms(props) {
   return update(staticProps, modProps);
 }
 
-function handleAttrProps(props) {
+function handleAttrProps(props, el) {
   var validAttrProps = {
     'width': 'width',
     'height': 'height',
@@ -2694,10 +2694,10 @@ CSSUtilities.getCSSProps = function (el) {
   props = reduceProps(props, el);
 
   // Convert transform/translates into positional props (top/bottom/left/right)
-  props = fixTransforms(props);
+  props = fixTransforms(props, el);
 
   // Handle css props that are also valid attributes
-  props = handleAttrProps(props);
+  props = handleAttrProps(props, el);
 
   // If position is 'absolute' or 'fixed' but has no directional prop, set 'top' and 'left' to 0.
   props = setDirectionsOnPositionalEls(props);

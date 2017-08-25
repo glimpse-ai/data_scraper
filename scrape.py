@@ -17,8 +17,8 @@ def fetch_urls():
   print 'Found {} unfetched urls.'.format(len(unfetched_urls))
 
   # Set this url batch to a status of FETCHING
-  url_hash = {u: FETCHING for u in unfetched_urls}
-  redis.hmset('ph_urls', url_hash)
+  # url_hash = {u: FETCHING for u in unfetched_urls}
+  # redis.hmset('ph_urls', url_hash)
 
   return unfetched_urls
 
@@ -47,10 +47,10 @@ if __name__ == '__main__':
       TooManyElementsException,
       BatchesTooSlow,
       NoChildrenInBody), e:
-      print e.message
+      print e.message or e.msg or e.__class__.__name__
       err = True
     except BaseException, e:
-      print 'Unrecognized Exception: {}'.format(e.message)
+      print 'Unrecognized Exception: {}'.format(e.message or e.msg or e.__class__.__name__)
       err = True
 
     if err:

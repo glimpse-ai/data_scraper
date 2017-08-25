@@ -33,7 +33,7 @@ class InlineStyler:
     'removeUnseenElements',         # Remove invisible elements
     'removeUnwantedClasses',        # Remove classes that aren't in accepted class map
     'removeUnwantedAttrs',          # Remove attributes not in accepted attributes map
-    'removeDataKeepAttr'            # Remove data-keep attribute from all els
+    'removeDataKeepAttr',           # Remove data-keep attribute from all els
     'removeGivenElements',          # Remove any elements passed in
     'pullBorderBoxFromHTML',        # Give <body> box-sizing property if <html> has it
     'inheritProps',                 # Inherit CSS props up the DOM tree to avoid 'inherited' or 'initial' values
