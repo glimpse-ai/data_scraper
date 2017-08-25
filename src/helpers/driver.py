@@ -14,6 +14,6 @@ def get_driver(browser='chrome'):
     driver = webdriver.PhantomJS()
 
   driver.set_page_load_timeout(30)
-  driver.set_window_size(WINDOW_HEIGHT, WINDOW_WIDTH)
+  driver.set_window_size(WINDOW_WIDTH, WINDOW_HEIGHT)
 
   return driver
