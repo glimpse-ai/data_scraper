@@ -17,7 +17,7 @@ autoenv<br>
 
 2. Run `$ python setup.py` to create some gitignored directories and your `.env` file.
 
-3. Add the following environment variables to your `.env` file:
+3. Add the following to your `.env` file:
 
     ```
     export REDIS_URL="<YOUR_REDIS_URL>"
@@ -49,7 +49,7 @@ autoenv<br>
 
     ```python
     from src.helpers.cache import get_redis
-    from from src.statuses.urls import UNFETCHED
+    from src.statuses.urls import UNFETCHED
     
     redis = get_redis()
     
@@ -58,31 +58,36 @@ autoenv<br>
     redis.hmset('urls', url_hash)
     ```
 
-2. Scrape HTML from urls into local HTML files with inline-styled CSS
+2. Scrape HTML from urls into local HTML files with inline-styled CSS:
 
     ```
     $ python scrape.py
     ```
 
-3. Manually evaluate the HTML files to fix/remove outliers (optional).
+3. Manually evaluate the HTML files to fix/remove outliers (optional):
 
     ```
     $ python eval.py
     ```
+    
+    This starts a Flask server. From there, you can open any local html files in your browser and evaluate them with the following keys:
+    
+    * `D` --> moves HTML file to discard directory
+    * `S` --> saves current working HTML file in place (good for touching up files)
 
-4. Duplicate HTML files with `<section>` siblings that can be permutated
+4. Duplicate HTML files with `<section>` siblings that can be permutated:
 
     ```
     $ python permutate.py
     ```
 
-5. Capture screenshots of each HTML file
+5. Capture screenshots of each HTML file:
 
     ```
     $ python capture.py
     ```
 
-6. Translate all HTML files to DML
+6. Translate all HTML files to DML:
 
     ```
     $ python translate.py
