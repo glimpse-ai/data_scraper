@@ -4,12 +4,12 @@ Project used for converting urls into DML and images for the Glimpse dataset.
 
 ## Requirements
 
-Python 2.7.X
-pip
-virtualenv
-autoenv
-[ChomeDriver](http://chromedriver.storage.googleapis.com/index.html)
-[Redis](https://redis.io/topics/quickstart)
+Python 2.7.X<br>
+pip<br>
+virtualenv<br>
+autoenv<br>
+[ChomeDriver](http://chromedriver.storage.googleapis.com/index.html)<br>
+[Redis](https://redis.io/topics/quickstart)<br>
 
 ## Setup
 
