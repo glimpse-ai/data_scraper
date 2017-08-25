@@ -8,7 +8,7 @@ styler = InlineStyler()
 
 
 def fetch_urls():
-  unfetched_urls = [u for u, status in redis.hgetall('urls').iteritems() if status == UNFETCHED and u][:1000]
+  unfetched_urls = [u for u, status in redis.hgetall('ph_urls').iteritems() if status == UNFETCHED and u][:1000]
 
   if len(unfetched_urls) == 0:
     print 'No more unfetched urls!'
@@ -16,8 +16,9 @@ def fetch_urls():
 
   print 'Found {} unfetched urls.'.format(len(unfetched_urls))
 
+  # Set this url batch to a status of FETCHING
   url_hash = {u: FETCHING for u in unfetched_urls}
-  redis.hmset('urls', url_hash)
+  redis.hmset('ph_urls', url_hash)
 
   return unfetched_urls
 
@@ -32,7 +33,7 @@ if __name__ == '__main__':
     err = False
     try:
       styler.style_url(url)
-      redis.hset('urls', url, FETCH_SUCCESS)
+      redis.hset('ph_urls', url, FETCH_SUCCESS)
     except KeyboardInterrupt:
       print 'Bye Bye'
       exit(0)
@@ -54,6 +55,6 @@ if __name__ == '__main__':
 
     if err:
       styler.reset()
-      redis.hset('urls', url, FETCH_ERROR)
+      redis.hset('ph_urls', url, FETCH_ERROR)
 
     i += 1
