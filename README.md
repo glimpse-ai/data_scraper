@@ -24,23 +24,23 @@ autoenv<br>
     export CHROMEDRIVER="/path/to/chromedriver"
     ```
 
-4. Create a new virtual environment and activate it:
+4. Activate your environment variables:
+
+    ```
+    $ source ~/.bashrc
+    $ cd .
+    ```
+
+5. Create a new virtual environment and activate it:
 
     ```
     $ virtualenv venv && source venv/bin/activate 
     ```
 
-5. Install python library requirements:
+6. Install python library requirements:
 
     ```
     $ pip install -r requirements.txt
-    ```
-
-6. Activate your environment variables:
-
-    ```
-    $ source ~/.bashrc
-    $ cd .
     ```
 
 ## Usage
