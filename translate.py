@@ -1,6 +1,7 @@
 import os
 from src.translators import html2dml
 from src.helpers.definitions import html_dir, dml_dir
+from src.clean_dml import clean
 
 
 if __name__ == '__main__':
@@ -18,6 +19,9 @@ if __name__ == '__main__':
 
       # Translate HTML to DML
       dml = html2dml.translate(html)
+
+      # Clean up the DML
+      dml = clean(dml)
 
       # Write DML to file
       with open('{}/{}.dml'.format(dml_dir, f[:-5]), 'w+') as dml_file:

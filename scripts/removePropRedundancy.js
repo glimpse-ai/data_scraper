@@ -271,6 +271,14 @@ function removeRedundancy(el) {
     }
   }
 
+  if (reducedProps['background-position']) {
+    reducedProps['background-position'] = reducedProps['background-position'].split(',')[0];
+  }
+
+  if (reducedProps['background-repeat']) {
+    reducedProps['background-repeat'] = reducedProps['background-repeat'].split(',')[0];
+  }
+
   style = '';
   for (var k in reducedProps) {
     style += (k + ':' + reducedProps[k] + ';')
