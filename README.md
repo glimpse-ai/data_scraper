@@ -72,7 +72,7 @@ autoenv<br>
     
     This starts a Flask server. From there, you can open any local html files in your browser and evaluate them with the following keys:
     
-    `D` --> moves HTML file to discard directory
+    `D` --> moves HTML file to discard directory<br>
     `S` --> saves current working HTML file in place (good for touching up files)
 
 4. Duplicate HTML files with `<section>` siblings that can be permutated:
