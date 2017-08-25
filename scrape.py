@@ -1,6 +1,7 @@
 from src.inline_styler import InlineStyler
 from src.exceptions import *
 from src.helpers.cache import get_redis
+from src.helpers.utils import err_msg
 from src.statuses.urls import *
 
 redis = get_redis()
@@ -51,10 +52,12 @@ if __name__ == '__main__':
       TooManyElementsException,
       BatchesTooSlow,
       NoChildrenInBody), e:
-      print e.message or e.msg or e.__class__.__name__
+
+      print err_msg(e)
       err = True
+
     except BaseException, e:
-      print 'Unrecognized Exception: {}'.format(e.message or e.msg or e.__class__.__name__)
+      print 'Unrecognized Exception: {}'.format(err_msg(e))
       err = True
 
     if err:

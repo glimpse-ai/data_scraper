@@ -87,3 +87,13 @@ def image_for_html(html_filename):
       os.remove(full_image_path)
 
     raise ResizeImageError()
+
+
+def err_msg(e):
+  if hasattr(e, 'message') and e.message:
+    return e.message
+
+  if hasattr(e, 'msg') and e.msg:
+    return e.msg
+
+  return e.__class__.__name__
