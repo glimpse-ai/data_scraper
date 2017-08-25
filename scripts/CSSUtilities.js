@@ -2497,126 +2497,123 @@ function fixTransforms(props, el) {
   for (var p in props) {
     propVal = props[p];
 
-    // TRANSFORM
-    if (p == 'transform') {
-      if (isTranslate(propVal)) {
-        var x = null;
-        var y = null;
-        var xy = null;
-        var xyz = null;
+    if (p != 'transform' || !isTranslate(propVal)) {
+      continue;
+    }
 
-        propVal = propVal.substr(0, propVal.indexOf(')') + 1);
+    var x = null;
+    var y = null;
+    var xy = null;
+    var xyz = null;
 
-        if (startsWith(propVal, 'translateX(')) {
-          x = propVal.match(/translateX\((.*)\)/)[1].trim();
-        } else if (startsWith(propVal, 'translateY(')) {
-          y = propVal.match(/translateY\((.*)\)/)[1].trim();
-        } else if (startsWith(propVal, 'translate(')) {
-          xy = propVal.match(/translate\((.*)\)/)[1].replace(' ', '').split(',');
-          x = xy[0];
-          y = xy[1];
-        } else {  // translate3d( --> X,Y,Z
-          xyz = propVal.match(/translate3d\((.*)\)/)[1].replace(' ', '').split(',');
-          x = xyz[0];
-          y = xyz[1];
-        }
+    propVal = propVal.substr(0, propVal.indexOf(')') + 1);
 
-        if (x) {
-          var xVal = parseInt(x);
-          var xUnits = x.replace(xVal.toString(), '');
+    if (startsWith(propVal, 'translateX(')) {
+      x = propVal.match(/translateX\((.*)\)/)[1].trim();
+    } else if (startsWith(propVal, 'translateY(')) {
+      y = propVal.match(/translateY\((.*)\)/)[1].trim();
+    } else if (startsWith(propVal, 'translate(')) {
+      xy = propVal.match(/translate\((.*)\)/)[1].replace(' ', '').split(',');
+      x = xy[0];
+      y = xy[1];
+    } else {  // translate3d( --> X,Y,Z
+      xyz = propVal.match(/translate3d\((.*)\)/)[1].replace(' ', '').split(',');
+      x = xyz[0];
+      y = xyz[1];
+    }
 
-          if (props['left'] && props['right'] && props['left'] != 'auto' && props['right'] != 'auto') {
-            continue;
-          }
+    if (x) {
+      var xVal = parseInt(x);
+      var xUnits = x.replace(xVal.toString(), '');
 
-          if (props['left'] && props['left'] != 'auto') {
-            var left = props['left'].trim();
-            var leftVal = parseInt(left);
-            var leftUnits = left.replace(leftVal.toString(), '');
-
-            if (leftVal == 0|| isNaN(leftVal) || xUnits != leftUnits) {
-              continue;
-            }
-
-            if (xUnits == 'px') {
-              modProps['left'] = leftVal + xVal + 'px';
-            } else if (xUnits == '%') {
-              modProps['left'] = computeNewPctPos(el, 'left', leftVal, xVal);
-            }
-          } else if (props['right'] && props['right'] != 'auto') {
-            var right = props['right'].trim();
-            var rightVal = parseInt(right);
-            var rightUnits = right.replace(rightVal.toString(), '');
-
-            if (rightVal == 0|| isNaN(rightVal) || xUnits != rightUnits) {
-              continue;
-            }
-
-            xVal = -1 * xVal; // swap around signs
-
-            if (xUnits == 'px') {
-              modProps['right'] = rightVal + xVal + 'px';
-            } else if (xUnits == '%') {
-              modProps['right'] = computeNewPctPos(el, 'right', rightVal, xVal);
-            }
-          } else {
-            modProps['left'] = x;
-          }
-        }
-
-        if (y) {
-          var yVal = parseInt(y);
-          var yUnits = y.replace(yVal.toString(), '');
-
-          if (props.top && props.bottom && props.top != 'auto' && props.bottom != 'auto') {
-            continue;
-          }
-
-          if (props.top) {
-            var top = props.top.trim();
-            var topVal = parseInt(top);
-            var topUnits = top.replace(topVal.toString(), '');
-
-            if (topVal == 0|| isNaN(topVal) || yUnits != topUnits) {
-              continue;
-            }
-
-            if (yUnits == 'px') {
-              modProps.top = topVal + yVal + 'px';
-            } else if (yUnits == '%') {
-              modProps.top = computeNewPctPos(el, 'top', topVal, yVal);
-            }
-          } else if (props.bottom) {
-            var bottom = props.bottom.trim();
-            var bottomVal = parseInt(bottom);
-            var bottomUnits = bottom.replace(bottomVal.toString(), '');
-
-            if (bottomVal == 0|| isNaN(bottomVal) || yUnits != bottomUnits) {
-              continue;
-            }
-
-            yVal = -1 * yVal; // swap around signs
-
-            if (yUnits == 'px') {
-              modProps.bottom = bottomVal + yVal + 'px';
-            } else if (yUnits == '%') {
-              modProps.bottom = computeNewPctPos(el, 'bottom', bottomVal, yVal);
-            }
-          } else {
-            modProps.top = y;
-          }
-        }
-
-        if (['relative', 'absolute', 'fixed'].indexOf(props['position']) == -1) {
-          modProps.position = 'relative';
-        }
-
-        if (x || y) {
-          continue;
-        }
-      } else {
+      if (props['left'] && props['right'] && props['left'] != 'auto' && props['right'] != 'auto') {
         continue;
       }
+
+      if (props['left'] && props['left'] != 'auto') {
+        var left = props['left'].trim();
+        var leftVal = parseInt(left);
+        var leftUnits = left.replace(leftVal.toString(), '');
+
+        if (leftVal == 0|| isNaN(leftVal) || xUnits != leftUnits) {
+          continue;
+        }
+
+        if (xUnits == 'px') {
+          modProps['left'] = leftVal + xVal + 'px';
+        } else if (xUnits == '%') {
+          modProps['left'] = computeNewPctPos(el, 'left', leftVal, xVal);
+        }
+      } else if (props['right'] && props['right'] != 'auto') {
+        var right = props['right'].trim();
+        var rightVal = parseInt(right);
+        var rightUnits = right.replace(rightVal.toString(), '');
+
+        if (rightVal == 0|| isNaN(rightVal) || xUnits != rightUnits) {
+          continue;
+        }
+
+        xVal = -1 * xVal; // swap around signs
+
+        if (xUnits == 'px') {
+          modProps['right'] = rightVal + xVal + 'px';
+        } else if (xUnits == '%') {
+          modProps['right'] = computeNewPctPos(el, 'right', rightVal, xVal);
+        }
+      } else {
+        modProps['left'] = x;
+      }
+    }
+
+    if (y) {
+      var yVal = parseInt(y);
+      var yUnits = y.replace(yVal.toString(), '');
+
+      if (props.top && props.bottom && props.top != 'auto' && props.bottom != 'auto') {
+        continue;
+      }
+
+      if (props.top) {
+        var top = props.top.trim();
+        var topVal = parseInt(top);
+        var topUnits = top.replace(topVal.toString(), '');
+
+        if (topVal == 0|| isNaN(topVal) || yUnits != topUnits) {
+          continue;
+        }
+
+        if (yUnits == 'px') {
+          modProps.top = topVal + yVal + 'px';
+        } else if (yUnits == '%') {
+          modProps.top = computeNewPctPos(el, 'top', topVal, yVal);
+        }
+      } else if (props.bottom) {
+        var bottom = props.bottom.trim();
+        var bottomVal = parseInt(bottom);
+        var bottomUnits = bottom.replace(bottomVal.toString(), '');
+
+        if (bottomVal == 0|| isNaN(bottomVal) || yUnits != bottomUnits) {
+          continue;
+        }
+
+        yVal = -1 * yVal; // swap around signs
+
+        if (yUnits == 'px') {
+          modProps.bottom = bottomVal + yVal + 'px';
+        } else if (yUnits == '%') {
+          modProps.bottom = computeNewPctPos(el, 'bottom', bottomVal, yVal);
+        }
+      } else {
+        modProps.top = y;
+      }
+    }
+
+    if (['relative', 'absolute', 'fixed'].indexOf(props['position']) == -1) {
+      modProps.position = 'relative';
+    }
+
+    if (x || y) {
+      continue;
     }
 
     staticProps[p] = propVal;
@@ -2649,6 +2646,8 @@ function handleAttrProps(props, el) {
       props[prop] = attrVal;
     }
   }
+
+  return props;
 }
 
 function rulesToProps(rules) {
@@ -2681,6 +2680,8 @@ function setDirectionsOnPositionalEls(props) {
       props.left = 0;
     }
   }
+
+  return props;
 }
 
 CSSUtilities.getCSSProps = function (el) {
