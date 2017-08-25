@@ -8,7 +8,7 @@ styler = InlineStyler()
 
 
 def fetch_urls():
-  unfetched_urls = [u for u, status in redis.hgetall('ph_urls').iteritems() if status == UNFETCHED and u][:1000]
+  unfetched_urls = [u for u, status in redis.hgetall('ph_urls').iteritems() if status == UNFETCHED and u]
 
   if len(unfetched_urls) == 0:
     print 'No more unfetched urls!'
