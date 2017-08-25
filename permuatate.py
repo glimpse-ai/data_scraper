@@ -1,16 +1,13 @@
 import os
 from bs4 import BeautifulSoup, Tag, NavigableString
-from src.helpers.definitions import data_dir
+from src.helpers.definitions import html_dir, permutations_dir
 from random import shuffle, sample
 from itertools import permutations
 
 MAX_PERMS_PER_FILE = 10
 ROOT_ID = 'SECTIONS_ROOT'
 
-clipped_dir = data_dir + '/clipped'
-dest_dir = data_dir + '/dest'
-
-html_files = [f for f in os.listdir(clipped_dir) if f.endswith('.html')]
+html_files = [f for f in os.listdir(html_dir) if f.endswith('.html')]
 
 
 def is_nav_section(el):
@@ -52,7 +49,7 @@ if __name__ == '__main__':
     if not count % 50:
       print 'Done with {}'.format(count)
     
-    html_path = '{}/{}'.format(clipped_dir, f)
+    html_path = '{}/{}'.format(html_dir, f)
     
     with open(html_path) as html_file:
       html = html_file.read()
@@ -121,7 +118,7 @@ if __name__ == '__main__':
           curr_el = new_sibling
         
         file_suffix = '-'.join([str(i) for i in order]) + '.html'
-        new_file_path = '{}/{}-{}'.format(dest_dir, f[:-5], file_suffix)
+        new_file_path = '{}/{}-{}'.format(permutations_dir, f[:-5], file_suffix)
         
         with open(new_file_path, 'w+') as new_file:
           new_file.write(root_soup.encode('utf-8'))

@@ -12,6 +12,8 @@ image_dir = data_dir + '/images'
 
 html_dir = data_dir + '/html'
 
+permutations_dir = data_dir + '/permutations'
+
 html_discard_dir = data_dir + '/html_discard'
 
 dml_dir = data_dir + '/dml'
