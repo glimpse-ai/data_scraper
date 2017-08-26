@@ -2490,13 +2490,17 @@ function computeNewPctPos(el, side, sideVal, translateVal) {
 
 // Convert transform-translate's into positional css props
 function fixTransforms(props, el) {
-  var staticProps = {};
-  var modProps = {};
-  var propVal;
+  // clone props at this state
+  var propsCopy = {};
+  for (var k in props) {
+    propsCopy[k] = props[k];
+  }
 
+  var propVal;
   for (var p in props) {
     propVal = props[p];
 
+    // if not a transform: translate, just move on
     if (p != 'transform' || !isTranslate(propVal)) {
       continue;
     }
@@ -2526,12 +2530,12 @@ function fixTransforms(props, el) {
       var xVal = parseInt(x);
       var xUnits = x.replace(xVal.toString(), '');
 
-      if (props['left'] && props['right'] && props['left'] != 'auto' && props['right'] != 'auto') {
+      if (props.left && props.right && props.left != 'auto' && props.right != 'auto') {
         continue;
       }
 
-      if (props['left'] && props['left'] != 'auto') {
-        var left = props['left'].trim();
+      if (props.left && props.left != 'auto') {
+        var left = props.left.trim();
         var leftVal = parseInt(left);
         var leftUnits = left.replace(leftVal.toString(), '');
 
@@ -2540,12 +2544,12 @@ function fixTransforms(props, el) {
         }
 
         if (xUnits == 'px') {
-          modProps['left'] = leftVal + xVal + 'px';
+          propsCopy.left = leftVal + xVal + 'px';
         } else if (xUnits == '%') {
-          modProps['left'] = computeNewPctPos(el, 'left', leftVal, xVal);
+          propsCopy.left = computeNewPctPos(el, 'left', leftVal, xVal);
         }
-      } else if (props['right'] && props['right'] != 'auto') {
-        var right = props['right'].trim();
+      } else if (props.right && props.right != 'auto') {
+        var right = props.right.trim();
         var rightVal = parseInt(right);
         var rightUnits = right.replace(rightVal.toString(), '');
 
@@ -2556,12 +2560,12 @@ function fixTransforms(props, el) {
         xVal = -1 * xVal; // swap around signs
 
         if (xUnits == 'px') {
-          modProps['right'] = rightVal + xVal + 'px';
+          propsCopy.right = rightVal + xVal + 'px';
         } else if (xUnits == '%') {
-          modProps['right'] = computeNewPctPos(el, 'right', rightVal, xVal);
+          propsCopy.right = computeNewPctPos(el, 'right', rightVal, xVal);
         }
       } else {
-        modProps['left'] = x;
+        propsCopy.left = x;
       }
     }
 
@@ -2583,9 +2587,9 @@ function fixTransforms(props, el) {
         }
 
         if (yUnits == 'px') {
-          modProps.top = topVal + yVal + 'px';
+          propsCopy.top = topVal + yVal + 'px';
         } else if (yUnits == '%') {
-          modProps.top = computeNewPctPos(el, 'top', topVal, yVal);
+          propsCopy.top = computeNewPctPos(el, 'top', topVal, yVal);
         }
       } else if (props.bottom) {
         var bottom = props.bottom.trim();
@@ -2599,27 +2603,25 @@ function fixTransforms(props, el) {
         yVal = -1 * yVal; // swap around signs
 
         if (yUnits == 'px') {
-          modProps.bottom = bottomVal + yVal + 'px';
+          propsCopy.bottom = bottomVal + yVal + 'px';
         } else if (yUnits == '%') {
-          modProps.bottom = computeNewPctPos(el, 'bottom', bottomVal, yVal);
+          propsCopy.bottom = computeNewPctPos(el, 'bottom', bottomVal, yVal);
         }
       } else {
-        modProps.top = y;
+        propsCopy.top = y;
       }
     }
 
     if (['relative', 'absolute', 'fixed'].indexOf(props['position']) == -1) {
-      modProps.position = 'relative';
+      propsCopy.position = 'relative';
     }
 
     if (x || y) {
       continue;
     }
-
-    staticProps[p] = propVal;
   }
 
-  return update(staticProps, modProps);
+  return propsCopy;
 }
 
 function handleAttrProps(props, el) {
