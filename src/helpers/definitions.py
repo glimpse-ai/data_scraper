@@ -8,6 +8,8 @@ scrape_helpers_dir = basedir + '/scrape_helpers'
 
 data_dir = basedir + '/data'
 
+templates_dir = basedir + '/templates'
+
 image_dir = data_dir + '/images'
 
 html_dir = data_dir + '/html'

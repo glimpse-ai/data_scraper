@@ -1,4 +1,4 @@
-from helpers.definitions import html_dir, WINDOW_WIDTH, WINDOW_HEIGHT, IMAGE_HEIGHT
+from helpers.definitions import html_dir, templates_dir, WINDOW_WIDTH, WINDOW_HEIGHT, IMAGE_HEIGHT
 from helpers.utils import filename_for_url, which_os, get_script, get_scrape_helper
 from helpers.driver import get_driver
 from src.exceptions import *
@@ -15,7 +15,7 @@ sys.setdefaultencoding('utf-8')
 class InlineStyler:
   BATCH_SIZE = 50  # Number of elements in a styling batch
   MAX_BATCHES_ALLOWED = 50  # Max number of element batches allowed without rejecting the URL (take too long)
-  BATCHES_HALFWAY_TIME_REQ = 3600  # Batches must be halfway done after this much time (ms)
+  BATCHES_HALFWAY_TIME_REQ = 360  # Batches must be halfway done after this much time (seconds)
 
   SCRIPTS = [
     'replaceLinkWithStyle',         # Replace <link> tag with <style type="text/css">provided css</style>
@@ -293,11 +293,11 @@ class InlineStyler:
 
   def get_body_wrapper(self, all_els_border_box):
     if all_els_border_box:
-      wrapper_template = 'body_wrapper_border_box.html'
+      wrapper_template = 'body_wrapper_border_box'
     else:
-      wrapper_template = 'body_wrapper.html'
+      wrapper_template = 'body_wrapper'
 
-    with open(wrapper_template) as f:
+    with open('{}/{}.html'.format(templates_dir, wrapper_template)) as f:
       wrapper = f.read()
 
     return wrapper
